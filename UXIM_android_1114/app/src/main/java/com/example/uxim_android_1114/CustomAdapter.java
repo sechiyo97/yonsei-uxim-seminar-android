@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
 
     private ArrayList<ItemList> mList;
@@ -36,8 +35,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         this.mList = list;
     }
 
-
-
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
@@ -49,9 +46,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         return viewHolder;
     }
 
-
-
-
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder viewholder, int position) {
 
@@ -61,7 +55,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         viewholder.id.setGravity(Gravity.CENTER);
         viewholder.english.setGravity(Gravity.CENTER);
 
-        viewholder.id.setText(mList.get(position).getId());
+        viewholder.id.setText(Integer.toString(position));
         viewholder.english.setText(mList.get(position).getEnglish());
 
         // delete 기능 추가 : 가져온 버튼에 삭제기능 추가
@@ -72,6 +66,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 int pos = (int)view.getTag(); // 태그로 버튼 번호 가져오고
                 mList.remove(pos); // 리스트에서 이 내용을 지우고
                 notifyItemRemoved(pos); // 실제 화면에 반영한다.
+                for (int i=0;i<mList.size();i++) notifyItemChanged(i);
             }
         });
     }
@@ -80,9 +75,4 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     public int getItemCount() {
         return (null != mList ? mList.size() : 0);
     }
-
-    public void deleteThisView(){
-
-    }
-
 }

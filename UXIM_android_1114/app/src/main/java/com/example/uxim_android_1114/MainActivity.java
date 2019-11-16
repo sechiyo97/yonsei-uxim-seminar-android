@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Hello", value);
 
 
-                        ItemList data = new ItemList(count+"",value);
+                        ItemList data = new ItemList(value);
 
                         //mArrayList.add(0, data); //RecyclerView의 첫 줄에 삽입
                         mArrayList.add(data); // RecyclerView의 마지막 줄에 삽입

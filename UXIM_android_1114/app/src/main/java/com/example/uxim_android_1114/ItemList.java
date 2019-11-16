@@ -2,16 +2,7 @@ package com.example.uxim_android_1114;
 
 public class ItemList {
 
-    private String id;
     private String English;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getEnglish() {
         return English;
@@ -21,8 +12,7 @@ public class ItemList {
         English = english;
     }
 
-    public ItemList(String id, String english) {
-        this.id = id;
+    public ItemList(String english) {
         English = english;
     }
 }

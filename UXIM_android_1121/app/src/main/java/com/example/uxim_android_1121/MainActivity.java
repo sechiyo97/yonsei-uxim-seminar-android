@@ -1,4 +1,4 @@
-package com.example.uxim_android_1114;
+package com.example.uxim_android_1121;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ItemList> mArrayList;
     private CustomAdapter mAdapter;
     private int count = -1;
+    private SharedPreferences appData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,12 @@ public class MainActivity extends AppCompatActivity {
 
         // 이름 가져와서 추가
         TextView nameView = (TextView) findViewById(R.id.my_name);
-        String name = getIntent().getStringExtra("name");
+        //String name = getIntent().getStringExtra("name");
+
+        // 설정값 객체 불러오기
+        appData = getSharedPreferences("appData", MODE_PRIVATE);
+        // 설정값 가져오기
+        String name = appData.getString("NAME", "없음"); // 데이터 없는 경우 가져옴
         nameView.setText(name);
 
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_main_list);
@@ -44,6 +52,15 @@ public class MainActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
                 mLinearLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
+
+        Button buttonEditName = (Button)findViewById(R.id.edit_name_btn);
+        buttonEditName.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                showName();
+            }
+        });
+
 
         Button buttonInsert = (Button)findViewById(R.id.button_main_insert);
         buttonInsert.setOnClickListener(new View.OnClickListener() {
@@ -85,5 +102,10 @@ public class MainActivity extends AppCompatActivity {
                 mAdapter.notifyDataSetChanged();
             }
         });
+    }
+    public void showName(){
+        Intent intent = new Intent(getBaseContext(), NameActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

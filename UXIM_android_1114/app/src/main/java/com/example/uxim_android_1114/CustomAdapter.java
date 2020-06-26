@@ -16,6 +16,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
 
     private ArrayList<ItemList> mList;
 
+    public void deleteItem(int position){
+        mList.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         protected TextView id;
         protected TextView english;
@@ -66,7 +71,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
                 int pos = (int)view.getTag(); // 태그로 버튼 번호 가져오고
                 mList.remove(pos); // 리스트에서 이 내용을 지우고
                 notifyItemRemoved(pos); // 실제 화면에 반영한다.
-                for (int i=0;i<mList.size();i++) notifyItemChanged(i);
+                notifyItemRangeChanged(pos, mList.size());
             }
         });
     }

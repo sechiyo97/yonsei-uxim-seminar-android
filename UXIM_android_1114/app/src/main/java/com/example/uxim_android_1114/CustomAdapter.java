@@ -70,8 +70,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             public void onClick(View view) {
                 int pos = (int)view.getTag(); // 태그로 버튼 번호 가져오고
                 mList.remove(pos); // 리스트에서 이 내용을 지우고
-                notifyItemRemoved(pos); // 실제 화면에 반영한다.
-                notifyItemRangeChanged(pos, mList.size());
+
+                // 실제 화면에 반영한다.
+
+                notifyDataSetChanged(); // 1) // with no animation.
+
+                /*notifyItemRemoved(pos); // 2) with animation
+                notifyItemRangeChanged(pos, mList.size());*/
             }
         });
     }
